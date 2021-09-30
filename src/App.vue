@@ -1,9 +1,16 @@
 <template>
-	<div :class="containerClass" @click="onWrapperClick">
+	<div v-if="isLogginIn" :class="containerClass" @click="onWrapperClick">
         <AppTopBar @menu-toggle="onMenuToggle" />
         <div class="layout-sidebar" @click="onSidebarClick">
             <AppMenu :model="menu" @menuitem-click="onMenuItemClick" />
         </div>
+        <div class="layout-main-container">
+            <div class="layout-main">
+                <router-view />
+            </div>
+        </div>
+	</div>
+    <div v-else>
         <div class="layout-main-container">
             <div class="layout-main">
                 <router-view />
@@ -19,6 +26,7 @@ import AppMenu from './AppMenu.vue';
 export default {
     data() {
         return {
+            isLogginIn: false,
             layoutMode: 'static',
             layoutColorMode: 'light',
             staticMenuInactive: false,
@@ -27,7 +35,7 @@ export default {
             menu : [
                 {
                     items: [{
-                        label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'
+                        label: 'Login', icon: 'pi pi-fw pi-home', to: '/'
                     }]
                 },
 				// {
@@ -113,8 +121,11 @@ export default {
             ]
         }
     },
+        
     watch: {
         $route() {
+            this.isLogginIn = this.$router.currentRoute.value.path !== '/' 
+
             this.menuActive = false;
             this.$toast.removeAllGroups();
         }
@@ -129,6 +140,7 @@ export default {
             this.menuClick = false;
         },
         onMenuToggle() {
+            
             this.menuClick = true;
 
             if (this.isDesktop()) {

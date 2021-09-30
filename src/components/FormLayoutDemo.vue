@@ -1,6 +1,6 @@
 <template>
-	<div class="grid">
-		<div class="col-12 md:col-6">
+	<div class="grid flex align-items-center justify-content-center" >
+		<div class="col-12 md:col-5">
 			<div class="card p-fluid">
 				<div class="flex align-items-center justify-content-center">
 					<h4>Login</h4>
@@ -17,13 +17,23 @@
 						<a style="float: right;" href="/">Esqueci a senha</a>
 					</div>
 					<div class="p-fluid">
-						<Button label="Submit" class="mr-2 mb-2 p-button-warning"></Button>	
+						<Button label="Submit" @click="submit" class="mr-2 mb-2 p-button-warning"></Button>	
 					</div>
 					<div class="flex align-items-center justify-content-center">
 						<a style="float: right;" href="/">Criar uma conta</a>
 					</div>
 			</div>
 		</div>
+
+		<div class="col-12 md:col-7">
+
+			<div class="card p-fluid">
+	
+			</div>
+		</div>
+
+
+
 	</div>	
 </template>
 
@@ -32,6 +42,12 @@
 		data() {
 			return {
 			}
+		},	
+		
+		methods: {
+		submit() {
+			this.$router.push('/dashboard')
 		}
+	},		
 	}
 </script>
